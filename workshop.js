@@ -8,30 +8,103 @@ function forEach(callback, theArray) {
     ...
   }
   */
+  for(var i = 0; i < theArray.length; i++) {
+    callback(theArray[i]);
+  }
 }
 
 function map(mappingFunction, theArray) {
-
+    var newArr = [];
+    // function mappingFunction() {
+    //   return newArr.push(theArray[i] * 2);
+    //   }
+    // for(var i = 0; i < theArray.length; i++) {
+    //   mappingFunction();
+    // }
+    
+    forEach(function(element) {
+      newArr.push(mappingFunction(element))
+    }, theArray);
+    
+    return newArr;
 }
 
 function filter(predicate, theArray) {
-
+    var newArr = [];
+    
+    forEach(function(element) {
+      if(predicate(element)){
+        newArr.push(element);
+      }
+    }, theArray)
+    
+    return newArr;
 }
 
 function every(predicate, theArray) {
+  
+  var newArr = [];
+  
+  forEach(function(element) {
+    if(!predicate(element)) {
+      return false;
+    }
+    else {
+      newArr.push(element); 
+    }
+    
+  }, theArray)
+  if(newArr.length === theArray.length) {
+    return true;
+  }
+  else {
+    return false;
+  }
 
+  
+  // forEach(function(element) {
+  //   if(!predicate(element)) return false ;
+  // }, theArray);
+  
+  // return true;
 }
 
 function some(predicate, theArray) {
-
+  if(theArray.length === 0) return false;
+  
+  for(var i = 0; i < theArray.length; i++) {
+    if(predicate(theArray[i])) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 function indexOf(item, theArray) {
-
+  
+  if(theArray.length === 0) return -1;
+  
+    for(var i = 0; i < theArray.length; i++) {
+      if(item === theArray[i]) {
+        return i;
+      }
+    }
+    return -1;
 }
 
 function findIndex(predicate, theArray) {
-
+  
+  var index = 0;
+  forEach(function(element) {
+    forEach(function(key) {
+      index ++;
+        if(predicate(key) ) {
+          return index;
+        }
+    }, element);
+  }, theArray);
+  return - 1;
 }
 
 function first(n, theArray) {
